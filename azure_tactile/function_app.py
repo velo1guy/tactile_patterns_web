@@ -11,9 +11,9 @@ import cv2
 #TODO: seems good, needs to be tested though
 
 # Initialize the BlobServiceClient, need to enter blob_connection_string and container_name
-blob_connection_string = "azure storage string"
+blob_connection_string = "azure_storage_string"
 blob_service_client = BlobServiceClient.from_connection_string(blob_connection_string)
-container_name = "processed-images"
+container_name = "tactile_images"
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Processing image upload request.')
@@ -63,6 +63,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
 
 
+# TODO: Add err handling
 def process_img(image_path):
 
     image = cv2.imread(image_path)

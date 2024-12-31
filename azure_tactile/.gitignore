@@ -7,5 +7,5 @@ venv
 bin
 include
 pyvenv.cfg
-
+/__pycache__
 
