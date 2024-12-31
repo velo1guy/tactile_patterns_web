@@ -63,23 +63,14 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
 
 
-"""
-Convert scenery image to tactile image.
+def process_img(image_path):
 
-# Algorithm
-1. Read scenery image.
-2. Grayscale.
-3. Histogram equalize.
-4. Compute fine-grained saliency map.
-5. Scale to [0, 255]
-6. Compute binary threshold map.
-7. Invert binary threshold map.
-8. Write tactile image.
+    image = cv2.imread(image_path)
 
-References at the corresponding source code below.
-"""
-# args removed
-def process_img(image):
+    # Check if image was loaded correctly
+    if image is None:
+        raise ValueError(f"Error loading image: {image_path}")
+
     # Edited to just take file_path as image and work off of that
     image_grayscaled = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     image_equalized = cv2.equalizeHist(image_grayscaled)
@@ -105,8 +96,13 @@ def process_img(image):
     inverse_threshold_map = cv2.bitwise_not(threshold_map)
 
     # Should save to be /tmp/tactile_image.ext, tmp being azures temp file tree
-    output = os.path.join(("/tmp","tactile_"+os.path.basename(image)))
-    cv2.imwrite(output, inverse_threshold_map)
+    # Ensure the output path is correct for your environment (e.g., Azure)
+    output_dir = "azure_tactile/tmp"  # Azure Functions storage is tmp, might have to fnagle this
+    output_filename = "tactile_" + os.path.basename(image_path)
+    output_path = os.path.join(output_dir, output_filename)
 
-    return output
+    # Save image
+    cv2.imwrite(output_path, inverse_threshold_map)
 
+
+    return output_path

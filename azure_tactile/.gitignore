@@ -3,6 +3,7 @@ lib
 lib64
 .vscode
 .venv
+venv
 bin
 include
 pyvenv.cfg
