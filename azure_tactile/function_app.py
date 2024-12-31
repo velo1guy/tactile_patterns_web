@@ -98,7 +98,11 @@ def process_img(image_path):
 
     # Should save to be /tmp/tactile_image.ext, tmp being azures temp file tree
     # Ensure the output path is correct for your environment (e.g., Azure)
-    output_dir = "azure_tactile/tmp"  # Azure Functions storage is tmp, might have to fnagle this
+    # Added some err handling because I could see this causing issues. I dont want it to make a new dir if it doesn't 
+    # exist because I could see that cousing issues with the cloud..
+    output_dir = "azure_tactile/tmp"  
+    if not os.path.exists(output_dir):
+        raise FileNotFoundError(f"The directory '{output_dir}' does not exist. Please ensure the directory exists before saving the image.")
     output_filename = "tactile_" + os.path.basename(image_path)
     output_path = os.path.join(output_dir, output_filename)
 
