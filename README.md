@@ -1,3 +1,5 @@
+# The location of the project has been moved to the wwu page, viewable [here](https://github.com/wwu-webtech/Tactile_Patterns) under the webapp branch for the time being.
+
 # Tactile Image Web App:
 
 ## What is this?:
